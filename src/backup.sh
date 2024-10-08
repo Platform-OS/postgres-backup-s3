@@ -11,18 +11,19 @@ pg_dump --format=custom \
         $PGDUMP_EXTRA_OPTS \
         > db.dump
 
+gzip db.dump
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
-s3_uri_base="s3://${S3_BUCKET}/${S3_PREFIX}/${POSTGRES_DATABASE}_${timestamp}.dump"
+s3_uri_base="s3://${S3_BUCKET}/${S3_PREFIX}/${POSTGRES_DATABASE}_${timestamp}.dump.gz"
 
 if [ -n "$PASSPHRASE" ]; then
   echo "Encrypting backup..."
   rm -f db.dump.gpg
-  gpg --symmetric --batch --passphrase "$PASSPHRASE" db.dump
-  rm db.dump
+  gpg --symmetric --batch --passphrase "$PASSPHRASE" db.dump.gz
+  rm db.dump.gz
   local_file="db.dump.gpg"
   s3_uri="${s3_uri_base}.gpg"
 else
-  local_file="db.dump"
+  local_file="db.dump.gz"
   s3_uri="$s3_uri_base"
 fi
 
