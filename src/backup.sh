@@ -3,7 +3,10 @@
 set -eu
 set -o pipefail
 
-source ./env.sh
+source /env.sh
+
+mkdir -p /backup
+cd /backup
 
 echo "Creating backup of $POSTGRES_DATABASE database..."
 pg_dump --format=custom \
@@ -27,7 +30,7 @@ else
   s3_uri="$s3_uri_base"
 fi
 
-echo "Uploading backup to $S3_BUCKET..."
+echo "Uploading backup from $(find "$(pwd)" -name $local_file) to $S3_BUCKET..."
 aws $aws_args s3 cp "$local_file" "$s3_uri"
 rm "$local_file"
 
