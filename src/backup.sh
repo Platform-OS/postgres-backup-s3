@@ -5,6 +5,7 @@ set -o pipefail
 
 source /env.sh
 
+rm -rf /backup
 mkdir -p /backup
 cd /backup
 
