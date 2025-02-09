@@ -12,10 +12,4 @@ if [ -z "$DATABASE_URL" ]; then
   exit 1
 fi
 
-if [ -z "$S3_ENDPOINT" ]; then
-  aws_args=""
-else
-  aws_args="--endpoint-url $S3_ENDPOINT"
-fi
-
 export AWS_DEFAULT_REGION=$S3_REGION
