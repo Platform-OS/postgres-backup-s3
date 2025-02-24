@@ -40,7 +40,7 @@ gzip -d db$file_type
 conn_opts="-d $DATABASE_URL"
 
 echo "Restoring from backup..."
-pg_restore $conn_opts --clean --if-exists db.dump
+pg_restore $PGRESTORE_EXTRA_OPTS $conn_opts --clean --if-exists db.dump
 rm db.dump
 
 echo "Restore complete."
