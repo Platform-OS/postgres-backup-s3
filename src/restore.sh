@@ -19,7 +19,7 @@ if [ $# -eq 1 ]; then
 else
   echo "Finding latest backup..."
   key_suffix=$(
-    aws s3 ls "${s3_uri_base}/${POSTGRES_DATABASE}" \
+    aws s3 ls "${s3_uri_base}/${SOURCE_DATABASE}" \
       | sort \
       | tail -n 1 \
       | awk '{ print $4 }'
