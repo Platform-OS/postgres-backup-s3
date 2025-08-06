@@ -10,10 +10,7 @@ mkdir -p /backup
 cd /backup
 
 echo "Creating backup of $POSTGRES_DATABASE database..."
-pg_dump --format=custom \
-        -d $DATABASE_URL \
-        $PGDUMP_EXTRA_OPTS \
-        > db.dump
+pg_dump --format=custom -d $DATABASE_URL $PGDUMP_EXTRA_OPTS > db.dump
 
 gzip db.dump
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S")
