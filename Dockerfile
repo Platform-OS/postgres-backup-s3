@@ -20,5 +20,7 @@ ADD src/run.sh run.sh
 ADD src/env.sh env.sh
 ADD src/backup.sh backup.sh
 ADD src/restore.sh restore.sh
+ADD src/local-backup.sh local-backup.sh
+ADD src/local-restore.sh local-restore.sh
 
 CMD ["sh", "run.sh"]
