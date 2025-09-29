@@ -12,7 +12,7 @@ fi
 if [ -z "$DATABASE_URL" ]; then
   echo "DATABASE_URL not set. Building from POSTGRES_[USER|PASSWORD|HOST|DATABASE]"
   set -u
-  export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DATABASE}"
+  export DATABASE_URL="postgres://${POSTGRES_USER}:$(printf ${POSTGRES_PASSWORD} | jq -rR @uri)@${POSTGRES_HOST}/${POSTGRES_DATABASE}"
 fi
 
 export AWS_DEFAULT_REGION=$S3_REGION
